@@ -1,0 +1,24 @@
+# ビルド生成物
+build/
+build_cl/
+dist/
+out/
+
+# MSVC 中間ファイル
+*.obj
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.idb
+*.aux2
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
