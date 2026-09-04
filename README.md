@@ -3,7 +3,7 @@
 After Effects の「整列」パネルのように、**複数選択したオブジェクト**の
 X / Y / Z 座標（中心座標）を、揃える・画面中央へ配置する・均等配置するプラグイン。
 
-対象: **AviUtl ExEdit2（AviUtl2）**。旧 AviUtl では動作しない。
+対象: **AviUtl ExEdit2（AviUtl2）**
 
 > **タイムライン方向の整列ではありません。**
 > AviUtl2 には標準で「オブジェクトの開始点を揃える」「オブジェクトを均等配置」といった
@@ -47,41 +47,12 @@ X / Y / Z 座標（中心座標）を、揃える・画面中央へ配置する�
 - 均等配置（分配）は 3 個以上、指定間隔での配置は 2 個以上選択している場合に機能する。
 - 指定間隔の入力欄が空・数値以外・0 の場合は、誤操作防止のため何も実行しない。
 
-## ビルド方法
-
-### 必要環境
-- **Visual Studio 2022**（ワークロード「C++ によるデスクトップ開発」）
-  → MSVC・Windows SDK・CMake が同時に入る
-- ターゲットは **x64**
-
-### 手順
-1. このフォルダで `build.bat` を実行（または下記コマンド）。
-
-   ```
-   cmake -S . -B build -G "Visual Studio 17 2022" -A x64
-   cmake --build build --config Release
-   ```
-
-2. 生成物 `build\Release\TP_CoordAlign.aux2` を Plugin フォルダへコピーする。
-
 ## 仕様・制限
 
 - **中心座標ベース**の整列。AE のようなバウンディングボックス（見た目の端）
   基準ではない。SDK にオブジェクトの描画サイズを取得する API が無いため。
 - 「指定間隔で配置」も中心座標間の距離を指定する。オブジェクトの見た目の
   隙間ではない点に注意。
-
-## ファイル構成
-
-```
-TP_CoordAlign/
-├─ src/AlignPanel.cpp          … プラグイン本体
-├─ include/aviutl2_sdk/*.h      … SDK ヘッダ（同梱・MIT）
-├─ CMakeLists.txt               … ビルド定義（出力: TP_CoordAlign.aux2）
-├─ build.bat                    … ワンクリックビルド
-├─ LICENSE                      … 本プラグインのライセンス (MIT)
-└─ README.md
-```
 
 ## ライセンス
 
