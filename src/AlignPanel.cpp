@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------
-//	整列パネル  ―  AviUtl ExEdit2 用 汎用プラグイン (.aux2)
+//	TP_CoordAlign  ―  AviUtl ExEdit2 用 汎用プラグイン (.aux2)
 //
 //	After Effects の「整列」パネル風に、複数選択したオブジェクトの
 //	X / Y / Z 座標（中心座標）を揃える・画面中央へ配置する・均等配置する。
@@ -43,7 +43,10 @@ static EDIT_HANDLE*   g_edit   = nullptr;
 static LOG_HANDLE*    g_logger = nullptr;
 static CONFIG_HANDLE* g_config = nullptr;
 
-#define PanelClassName L"AlignPanelWindowClient"
+// AviUtl2 の UI に表示される名前（ウィンドウメニュー等）
+#define PluginName      L"TP_CoordAlign"
+// ウィンドウクラス名（内部登録用。UI には出ない）
+#define PanelClassName  L"TP_CoordAlignWindowClient"
 
 // 標準描画エフェクト名と座標項目名（実データで確定済み）
 static LPCWSTR const EFFECT_DRAW = L"標準描画";
@@ -327,12 +330,12 @@ static void dispatch(int id) {
 		if (c.op == OP_SPACING) {
 			p.step = read_step();
 			if (std::fabs(p.step) < 1e-9) {   // 未入力・数値でない・0 は誤操作防止のため何もしない
-				logw(L"[整列パネル] 「間隔(px)」に0以外の数値を入力してください");
+				logw(L"[TP_CoordAlign] 「間隔(px)」に0以外の数値を入力してください");
 				return;
 			}
 		}
 		if (!g_edit->call_edit_section_param(&p, proc_edit)) {
-			logw(L"[整列パネル] 編集できません（出力中などの可能性）");
+			logw(L"[TP_CoordAlign] 編集できません（出力中などの可能性）");
 		}
 		return;
 	}
@@ -563,8 +566,8 @@ static LRESULT CALLBACK wnd_proc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 //	汎用プラグイン エクスポート
 //----------------------------------------------------------------------------------
 static COMMON_PLUGIN_TABLE common_plugin_table = {
-	L"整列パネル",
-	L"整列パネル version 1.10 ― 複数オブジェクトのX/Y/Z整列・分配・指定間隔配置",
+	PluginName,
+	L"TP_CoordAlign version 1.11 ― 複数オブジェクトのX/Y/Z整列・分配・指定間隔配置",
 };
 
 EXTERN_C __declspec(dllexport) COMMON_PLUGIN_TABLE* GetCommonPluginTable(void) {
@@ -618,6 +621,6 @@ EXTERN_C __declspec(dllexport) void RegisterPlugin(HOST_APP_TABLE* host) {
 
 	build_ui(hwnd);
 
-	host->register_window_client(PanelClassName, hwnd);
+	host->register_window_client(PluginName, hwnd);
 	g_edit = host->create_edit_handle();
 }
