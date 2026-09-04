@@ -17,7 +17,7 @@ if (MSVC)
     target_compile_options(AlignPanel PRIVATE /utf-8 /W3)
 endif()
 
-target_link_libraries(AlignPanel PRIVATE user32 gdi32)
+target_link_libraries(AlignPanel PRIVATE user32 gdi32 comctl32)
 
 # 出力を  TP_CoordAlign.aux2  にする（接頭辞 lib を消し、拡張子を .aux2 に）
 set_target_properties(AlignPanel PROPERTIES
